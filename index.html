@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>San Valentín 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      font-family: 'Great Vibes', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #d6336c;
+      text-shadow: 2px 2px #fff;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: #ff4d6d;
+      border: none;
+      padding: 15px 30px;
+      margin: 10px;
+      border-radius: 30px;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #d6336c;
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 2em;
+      opacity: 0.8;
+    }
+
+    /* Responsividad */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+      button {
+        font-size: 1em;
+        padding: 10px 20px;
+      }
+      .emoji {
+        font-size: 1.5em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5em;
+      }
+      button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+      }
+      .emoji {
+        font-size: 1.2em;
+      }
+    }
+
+    /* Carrusel de frases románticas */
+    .carousel {
+      width: 80%;
+      max-width: 600px;
+      margin-top: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel-item {
+      display: none;
+      font-size: 1.5em;
+      color: #d6336c;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .carousel-item.active {
+      display: block;
+    }
+
+    .carousel-controls button {
+      background: transparent;
+      border: none;
+      font-size: 2em;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.3s;
+    }
+
+    .carousel-controls button:hover {
+      transform: scale(1.2);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Corazones latiendo */
+    .heart {
+      position: absolute;
+      font-size: 2em;
+      color: #ff4d6d;
+      animation: heartbeat 1.5s infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Feliz San Valentín 💘</h1>
+  <!-- Botón actualizado -->
+  <button onclick="window.location.href='tulipanes.html'">Precioname :></button>
+  <button onclick="window.location.href='animacion.html'">Nuestro Amor</button>
+  <button onclick="window.location.href='musica.html'">Musica 🎶</button>
+
+  <!-- Carrusel de frases románticas -->
+  <div class="carousel">
+    <div class="carousel-item active">"Eres mi razón de sonreír cada día 💕"</div>
+    <div class="carousel-item">"Contigo todo es más bonito 🌹"</div>
+    <div class="carousel-item">"Mi corazón late solo por ti 💓"</div>
+  </div>
+
+  <!-- Botones para navegar el carrusel -->
+  <div class="carousel-controls">
+    <button onclick="prevSlide()">⬅️</button>
+    <button onclick="nextSlide()">➡️</button>
+  </div>
+
+  <script>
+    const emojis = ["🌹","💖","💕","💘","💞","💓"];
+    const totalEmojis = 60;
+
+    function randomMovement(emoji) {
+      let x = Math.random() * window.innerWidth;
+      let y = Math.random() * window.innerHeight;
+      emoji.style.left = x + "px";
+      emoji.style.top = y + "px";
+
+      let dx = (Math.random() - 0.5) * 2;
+      let dy = (Math.random() - 0.5) * 2;
+
+      function move() {
+        x += dx * 2;
+        y += dy * 2;
+
+        if (x < 0 || x > window.innerWidth) dx *= -1;
+        if (y < 0 || y > window.innerHeight) dy *= -1;
+
+        emoji.style.left = x + "px";
+        emoji.style.top = y + "px";
+
+        requestAnimationFrame(move);
+      }
+      move();
+    }
+
+    for (let i = 0; i < totalEmojis; i++) {
+      let emoji = document.createElement("div");
+      emoji.className = "emoji";
+      emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      document.body.appendChild(emoji);
+      randomMovement(emoji);
+    }
+
+    // Carrusel
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".carousel-item");
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        if (i === index) slide.classList.add("active");
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    setInterval(nextSlide, 5000);
+
+    // Corazones latiendo aleatorios
+    for (let i = 0; i < 15; i++) {
+      let heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "❤️";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = Math.random() * window.innerHeight + "px";
+      document.body.appendChild(heart);
+    }
+  </script>
+</body>
+</html>

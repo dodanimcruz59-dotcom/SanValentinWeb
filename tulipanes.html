@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Princesa 🌷</title>
+  <!-- Importar tipografía romántica desde Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #4b0000; /* rojo vino */
+      font-family: 'Great Vibes', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 3em;
+      max-width: 80%;
+      line-height: 1.5;
+      animation: fadeIn 2s ease-in-out;
+      z-index: 10;
+    }
+
+    .tulip {
+      position: absolute;
+      font-size: 2em;
+      opacity: 0.9;
+      animation: fall linear infinite;
+    }
+.back-btn {
+  margin-top: 30px;
+  background: #ff4d6d;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  color: white;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+  font-family: 'Great Vibes', cursive;
+}
+
+.back-btn:hover {
+  transform: scale(1.1);
+  background: #d6336c;
+}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-10vh); }
+      to { transform: translateY(110vh); }
+    }
+    /* Responsividad general */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 2.2em;
+  }
+  .player {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8em;
+    line-height: 1.3;
+  }
+  .player {
+    width: 90%;
+    padding: 15px;
+  }
+  .player img {
+    width: 100%;
+  }
+  audio {
+    width: 100%;
+  }
+  .back-btn {
+    font-size: 1em;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5em;
+  }
+  .player {
+    width: 95%;
+    padding: 10px;
+  }
+  .back-btn {
+    font-size: 0.9em;
+    padding: 8px 16px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <h1>"Eres tú mi princesa bonita, y yo siempre seré tu bebé"</h1>
+  <button class="back-btn" onclick="window.location.href='index.html'">Volver 💌</button>
+
+  <script>
+    const tulips = ["🌷","🌹","💐"];
+    const totalTulips = 50;
+
+    function createTulip() {
+      let tulip = document.createElement("div");
+      tulip.className = "tulip";
+      tulip.innerText = tulips[Math.floor(Math.random() * tulips.length)];
+      tulip.style.left = Math.random() * 100 + "vw";
+      tulip.style.animationDuration = (3 + Math.random() * 5) + "s"; // rápido o lento
+      document.body.appendChild(tulip);
+
+      setTimeout(() => {
+        tulip.remove();
+      }, parseFloat(tulip.style.animationDuration) * 1000);
+    }
+
+    // lluvia infinita
+    setInterval(createTulip, 300);
+  </script>
+</body>
+</html>
